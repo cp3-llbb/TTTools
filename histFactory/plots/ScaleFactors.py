@@ -36,6 +36,9 @@ def get_muon_iso_sf_branch(iso, id):
 def get_muon_id_sf_branch(id):
     return 'muon_sf_id_%s' % (lepton_id_to_string(id))
 
+def get_electron_id_sf_branch(id):
+    return 'electron_sf_id_%s' % (lepton_id_to_string(id))
+
 def get_csvv2_sf_branch(wp):
     return 'jet_sf_csvv2_%s' % (btag_wp_to_string(wp))
 
@@ -59,7 +62,7 @@ def get_lepton_SF_for_dilepton(lepton_index, dilepton_index, id1, id2, iso1, iso
     lepton_index = '%s.lidxs.%s' % (dilepton_object, pair_field)
     lepton_object = 'tt_leptons[%s]' % lepton_index
 
-    lepton_id_sf = '(({0}.isEl) ? 1. : {1}[{0}.idx][0])'.format(lepton_object, get_muon_id_sf_branch(id1))
+    lepton_id_sf = '(({0}.isEl) ? {1}[{0}.idx][0] : {2}[{0}.idx][0])'.format(lepton_object, get_electron_id_sf_branch(id1), get_muon_id_sf_branch(id1))
     lepton_iso_sf = '(({0}.isEl) ? 1. : {1}[{0}.idx][0])'.format(lepton_object, get_muon_iso_sf_branch(iso1, id1))
 
     return '%s * %s' % (lepton_id_sf, lepton_iso_sf)
@@ -91,3 +94,18 @@ def get_at_least_two_b_SF_for_dijet(dijet_index, b1_wp, b2_wp, id1, id2, iso1, i
     second_bjet_sf = get_at_least_two_b_SF_one_b_for_dijet(1, dijet_index, b1_wp, b2_wp, id1, id2, iso1, iso2)
 
     return "%s * %s" % (first_bjet_sf, second_bjet_sf)
+
+# trigger scale factors
+# hardcoded for now (only 2 bins -> easy)
+# the function called in defined in a separate c++ file
+
+def get_HLT_SF_for_dilepton(dilepton_index, id1, id2, iso1, iso2):
+    
+    dilepton_object = get_dilepton_object(dilepton_index, id1, id2, iso1, iso2)
+
+    lepton_index = '%s.lidxs' % dilepton_object
+    lepton_object_first = 'tt_leptons[%s.first]' % lepton_index
+    lepton_object_second = 'tt_leptons[%s.second]' % lepton_index
+
+    return "get_HLT_SF_for_dilepton( {0}.isElEl, {0}.isMuEl, {0}.isElMu, {0}.isMuMu, {1}.p4.Eta(), {2}.p4.Eta() )".format(dilepton_object, lepton_object_first, lepton_object_second)
+

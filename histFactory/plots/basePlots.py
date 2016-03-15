@@ -14,10 +14,22 @@ ll = [
         # Event/vertex infos
         {
             'name': 'nPV_CAT_#CAT_TITLE#',
-            'variable': 'Length$(vertex_ndof)',
+            'variable': 'vertex_n',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
-            'binning': (50, 0, 50)
+            'binning': (40, 0, 40)
         },
+        #{
+        #    'name': 'nPU_CAT_#CAT_TITLE#',
+        #    'variable': 'event_npu',
+        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+        #    'binning': (40, 0, 40)
+        #},
+        #{
+        #    'name': 'HT_CAT_#CAT_TITLE#',
+        #    'variable': 'event_ht',
+        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+        #    'binning': (100, 0, 1200)
+        #},
 
         # Yields
         {
@@ -77,7 +89,7 @@ ll = [
             'name': 'nMuons_CAT_#CAT_TITLE#',
             'variable': 'Length$(tt_muons_IDIso[#MU_IDISO#])',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
-            'binning': (50, 0, 0.2)
+            'binning': (5, 0, 5),
             'scale-factors': False
         },
 
@@ -105,6 +117,30 @@ ll = [
             'variable': 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].isoValue',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (50, 0, 0.2)
+        },
+        { 
+            'name': 'lep1_dz_CAT_#CAT_TITLE#',
+            'variable': ( 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].isEl ? '
+                            'electron_dz[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].idx ] : '
+                            'muon_dz[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].idx ]' ),
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (50, -0.1, 0.1)
+        },
+        { 
+            'name': 'lep1_dxy_CAT_#CAT_TITLE#',
+            'variable': ( 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].isEl ? '
+                            'electron_dxy[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].idx ] : '
+                            'muon_dxy[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].idx ]' ),
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (50, -0.1, 0.1)
+        },
+        { 
+            'name': 'lep1_dca_CAT_#CAT_TITLE#',
+            'variable': ( 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].isEl ? '
+                            'electron_dca[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].idx ] : '
+                            'muon_dca[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].idx ]' ),
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (50, -10, 10)
         },
         { 
             'name': 'lep1_SF_CAT_#CAT_TITLE#',
@@ -138,6 +174,30 @@ ll = [
             'variable': 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].isoValue',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (50, 0, 0.2)
+        },
+        { 
+            'name': 'lep2_dz_CAT_#CAT_TITLE#',
+            'variable': ( 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].isEl ? '
+                            'electron_dz[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].idx ] : '
+                            'muon_dz[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].idx ]' ),
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (50, -0.1, 0.1)
+        },
+        { 
+            'name': 'lep2_dxy_CAT_#CAT_TITLE#',
+            'variable': ( 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].isEl ? '
+                            'electron_dxy[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].idx ] : '
+                            'muon_dxy[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].idx ]' ),
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (50, -0.1, 0.1)
+        },
+        { 
+            'name': 'lep2_dca_CAT_#CAT_TITLE#',
+            'variable': ( 'tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].isEl ? '
+                            'electron_dca[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].idx ] : '
+                            'muon_dca[ tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].idx ]' ),
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (50, -10, 10)
         },
         { 
             'name': 'lep2_SF_CAT_#CAT_TITLE#',
@@ -807,24 +867,24 @@ llbb = [
             'binning': (25, -5, 5)
         },
         ## MTT Resolution
-        #{ 
-        #    'name': 'llbbMet_TT_M_minus_Mgen_beforeFSR_CAT_#CAT_TITLE#',
-        #    'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()',
-        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-        #    'binning': (100, -1000, 1000)
-        #},
-        #{ 
-        #    'name': 'llbbMet_TT_M_resolution_beforeFSR_CAT_#CAT_TITLE#',
-        #    'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()) / tt_gen_ttbar_beforeFSR_p4.M() ' ,
-        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-        #    'binning': (200, -10, 10)
-        #},
-        #{ 
-        #    'name': 'llbbMet_TT_M_minus_Mgen_CAT_#CAT_TITLE#',
-        #    'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_p4.M()',
-        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-        #    'binning': (100, -1000, 1000)
-        #},
+        { 
+            'name': 'llbbMet_TT_M_minus_Mgen_beforeFSR_CAT_#CAT_TITLE#',
+            'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
+            'binning': (100, -1000, 1000)
+        },
+        { 
+            'name': 'llbbMet_TT_M_resolution_beforeFSR_CAT_#CAT_TITLE#',
+            'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()) / tt_gen_ttbar_beforeFSR_p4.M() ' ,
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
+            'binning': (200, -10, 10)
+        },
+        { 
+            'name': 'llbbMet_TT_M_minus_Mgen_CAT_#CAT_TITLE#',
+            'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_p4.M()',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
+            'binning': (100, -1000, 1000)
+        },
         { 
             'name': 'llbbMet_TT_M_resolution_CAT_#CAT_TITLE#',
             'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_p4.M()) / tt_gen_ttbar_p4.M() ' ,
