@@ -1,9 +1,10 @@
 #!/nfs/soft/python/python-2.7.5-sl6_amd64_gcc44/bin/python
 
-# usage in TTTools/histFactory : python launchHistFactory.py -o condorOutDir -t -p pathToPlotterExe [-s]
+# usage in TTTools/histFactory : python launchJobs.py -o condorOutDir -t -p pathToPlotterExe [-s]
 
 import sys, os, json
-sys.path.append("../../CommonTools/histFactory/")
+sys.path.append("../CommonTools/histFactory/")
+sys.path.append("../CommonTools/treeFactory/")
 import copy
 import datetime
 
@@ -20,13 +21,13 @@ SCRAM_ARCH = os.environ['SCRAM_ARCH']
 sys.path.append(os.path.join(CMSSW_BASE,'bin', SCRAM_ARCH))
 
 # Prod 16/03/07
-IDs = range(1462, 1483)
-IDs.remove(1479)
-IDs.remove(1471)
-IDs.append(1506)
-#IDs = [1506]
+#IDs = range(1462, 1483)
+#IDs.remove(1479)
+#IDs.remove(1471)
+#IDs.append(1506)
+IDs = [1506]
 
-parser = argparse.ArgumentParser(description='Facility to submit histFactory jobs on condor.', usage='Usage in TTTools/histFactory: python launchHistFactory.py -o condorOutDir -f -p pathToPlotterExe [-s]')
+parser = argparse.ArgumentParser(description='Facility to submit treeFactory/histFactory jobs on condor.', usage='Usage in TTTools/common: python launchHistFactory.py -o condorOutDir -f -p pathToPlotterExe [-s]')
 parser.add_argument('-o', '--output', dest='output', default=str(datetime.date.today()), help='Name of output directory.')
 parser.add_argument('-s', '--submit', help='Choice to actually submit the jobs or not.', action="store_true")
 parser.add_argument('-f', '--filter', dest='filter', default=False, help='Apply filter on DY ht and TT lepton flavour.', action="store_true")
@@ -37,7 +38,7 @@ args = parser.parse_args()
 
 samples = []
 for ID in IDs:
-    filesperJob = 10
+    filesperJob = 5
     samples.append(
         {
             "ID": ID,
@@ -76,15 +77,15 @@ if args.filter :
                     jsonSample[ttflname]["sample_cut"] = "(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 ) || tt_gen_ttbar_decay_type >= 8"
                     jsonSample[ttflname]["output_name"] += "_diLep"
 
-                    ttslname = sampleName + "_semiLep"
-                    jsonSample[ttslname] = copy.deepcopy(jsonSample[sampleName])
-                    jsonSample[ttslname]["sample_cut"] = "tt_gen_ttbar_decay_type == 2 || tt_gen_ttbar_decay_type == 3 || tt_gen_ttbar_decay_type == 7"
-                    jsonSample[ttslname]["output_name"] += "_semiLep"
+                    #ttslname = sampleName + "_semiLep"
+                    #jsonSample[ttslname] = copy.deepcopy(jsonSample[sampleName])
+                    #jsonSample[ttslname]["sample_cut"] = "tt_gen_ttbar_decay_type == 2 || tt_gen_ttbar_decay_type == 3 || tt_gen_ttbar_decay_type == 7"
+                    #jsonSample[ttslname]["output_name"] += "_semiLep"
 
-                    ttfhname = sampleName + "_hadr"
-                    jsonSample[ttfhname] = copy.deepcopy(jsonSample[sampleName])
-                    jsonSample[ttfhname]["sample_cut"] = "tt_gen_ttbar_decay_type <= 1"
-                    jsonSample[ttfhname]["output_name"] += "_hadr"
+                    #ttfhname = sampleName + "_hadr"
+                    #jsonSample[ttfhname] = copy.deepcopy(jsonSample[sampleName])
+                    #jsonSample[ttfhname]["sample_cut"] = "tt_gen_ttbar_decay_type <= 1"
+                    #jsonSample[ttfhname]["output_name"] += "_hadr"
                     
                     jsonSample.pop(sampleName)
 

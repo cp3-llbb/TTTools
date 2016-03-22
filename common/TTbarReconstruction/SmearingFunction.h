@@ -106,6 +106,7 @@ class Binned1DTransferFunction: public SmearingFunction {
         std::cerr << "Error when defining 1D binned TF: unable to retrieve " << histName << " from file " << file->GetPath() << ".\n";
         exit(1);
       }
+      _TF->SetDirectory(0);
 
       std::cout << "Creating 1D TF from histogram " << histName << ".\n";
 
@@ -130,7 +131,7 @@ class Binned1DTransferFunction: public SmearingFunction {
   private:
 
     double _min, _max, _range, _offset;
-    const TH1D* _TF;
+    TH1D* _TF;
 };
 
 
@@ -139,11 +140,12 @@ class Binned2DTransferFunction: public SmearingFunction {
   public:
 
     Binned2DTransferFunction(const std::string histName, TFile* file){
-      _TF = dynamic_cast<TH2D*>( file->Get(histName.c_str()) );
+      _TF = dynamic_cast<TH2F*>( file->Get(histName.c_str()) );
       if(!_TF){
         std::cerr << "Error when defining 2D binned TF: unable to retrieve " << histName << " from file " << file->GetPath() << ".\n";
         exit(1);
       }
+      _TF->SetDirectory(0);
 
       std::cout << "Creating 2D TF from histogram " << histName << ".\n";
 
@@ -192,5 +194,5 @@ class Binned2DTransferFunction: public SmearingFunction {
 
     double _deltaMin, _deltaMax, _deltaRange;
     double _EgenMax, _EgenMin;
-    const TH2D* _TF;
+    TH2F* _TF;
 };
